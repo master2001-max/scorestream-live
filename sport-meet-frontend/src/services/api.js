@@ -39,6 +39,10 @@ export const authAPI = {
   getMe: () => api.get('/auth/me'),
   updateProfile: (data) => api.put('/auth/profile', data),
   changePassword: (data) => api.put('/auth/change-password', data),
+  // Admin users management
+  adminListUsers: () => api.get('/auth/admin/users'),
+  adminCreateUser: (data) => api.post('/auth/admin/users', data),
+  adminUpdateUser: (id, data) => api.put(`/auth/admin/users/${id}`, data),
 };
 
 // Houses API

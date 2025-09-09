@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { announcementsAPI } from '../services/api';
-import { 
-  SpeakerWaveIcon, 
+import {
+  SpeakerWaveIcon,
   PlusIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
@@ -82,21 +82,21 @@ const Announcements = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <div className="bg-white shadow rounded-lg">
+      <div className="backdrop-blur bg-white/5 border border-white/10 shadow rounded-lg">
         <div className="px-4 py-5 sm:p-6">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">Announcements</h1>
+            <h1 className="text-2xl font-bold heading-light">Announcements</h1>
             {canCreateAnnouncement && (
               <button
                 onClick={() => setShowCreateForm(!showCreateForm)}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
               >
                 <PlusIcon className="h-4 w-4 mr-2" />
                 New Announcement
@@ -106,7 +106,7 @@ const Announcements = () => {
 
           {/* Create Form */}
           {showCreateForm && (
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+            <div className="mb-6 p-4 bg-white/5 border border-white/10 rounded-lg">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
                 Create New Announcement
               </h3>
@@ -120,7 +120,7 @@ const Announcements = () => {
                     id="title"
                     name="title"
                     required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   />
@@ -134,7 +134,7 @@ const Announcements = () => {
                     name="message"
                     rows={3}
                     required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   />
@@ -146,7 +146,7 @@ const Announcements = () => {
                   <select
                     id="priority"
                     name="priority"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     value={formData.priority}
                     onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
                   >
@@ -159,7 +159,7 @@ const Announcements = () => {
                 <div className="flex space-x-3">
                   <button
                     type="submit"
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700"
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
                   >
                     Create Announcement
                   </button>
@@ -178,9 +178,9 @@ const Announcements = () => {
           {/* Announcements List */}
           {announcements.length === 0 ? (
             <div className="text-center py-12">
-              <SpeakerWaveIcon className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-2 text-sm font-medium text-gray-900">No announcements</h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <SpeakerWaveIcon className="mx-auto h-12 w-12 text-slate-300" />
+              <h3 className="mt-2 text-sm font-medium heading-light">No announcements</h3>
+              <p className="mt-1 text-sm text-slate-300">
                 Get started by creating a new announcement.
               </p>
             </div>
@@ -212,7 +212,7 @@ const Announcements = () => {
                             <>
                               <span>•</span>
                               <div className="flex items-center space-x-1">
-                                <div 
+                                <div
                                   className="w-3 h-3 rounded-full"
                                   style={{ backgroundColor: announcement.house.color }}
                                 ></div>

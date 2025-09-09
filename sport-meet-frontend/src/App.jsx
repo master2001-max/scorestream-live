@@ -17,64 +17,68 @@ import MatchManagement from './pages/admin/MatchManagement';
 import AnnouncementManagement from './pages/admin/AnnouncementManagement';
 import Profile from './pages/Profile';
 import './App.css';
+import { I18nProvider } from './contexts/I18nContext.jsx';
+// Removed ThemeProvider as dark/light toggle is not needed
 
 function App() {
   return (
     <AuthProvider>
       <SocketProvider>
-        <Router>
-          <div className="min-h-screen bg-gray-50">
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+        <I18nProvider>
+          <Router>
+            <div className="min-h-screen theme-navy">
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
 
-              {/* Protected Routes */}
-              <Route path="/" element={
-                <ProtectedRoute>
-                  <Layout />
-                </ProtectedRoute>
-              }>
-                <Route index element={<Navigate to="/dashboard" replace />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="leaderboard" element={<Leaderboard />} />
-                <Route path="scoreboard" element={<Scoreboard />} />
-                <Route path="announcements" element={<Announcements />} />
-                <Route path="profile" element={<Profile />} />
+                {/* Protected Routes */}
+                <Route path="/" element={
+                  <ProtectedRoute>
+                    <Layout />
+                  </ProtectedRoute>
+                }>
+                  <Route index element={<Navigate to="/dashboard" replace />} />
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="leaderboard" element={<Leaderboard />} />
+                  <Route path="scoreboard" element={<Scoreboard />} />
+                  <Route path="announcements" element={<Announcements />} />
+                  <Route path="profile" element={<Profile />} />
 
-                {/* Admin Routes */}
-                <Route path="admin" element={
-                  <ProtectedRoute requiredRole="admin">
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                } />
-                <Route path="admin/houses" element={
-                  <ProtectedRoute requiredRole="admin">
-                    <HouseManagement />
-                  </ProtectedRoute>
-                } />
-                <Route path="admin/users" element={
-                  <ProtectedRoute requiredRole="admin">
-                    <UserManagement />
-                  </ProtectedRoute>
-                } />
-                <Route path="admin/matches" element={
-                  <ProtectedRoute requiredRole="admin">
-                    <MatchManagement />
-                  </ProtectedRoute>
-                } />
-                <Route path="admin/announcements" element={
-                  <ProtectedRoute requiredRole="admin">
-                    <AnnouncementManagement />
-                  </ProtectedRoute>
-                } />
-              </Route>
+                  {/* Admin Routes */}
+                  <Route path="admin" element={
+                    <ProtectedRoute requiredRole="admin">
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="admin/houses" element={
+                    <ProtectedRoute requiredRole="admin">
+                      <HouseManagement />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="admin/users" element={
+                    <ProtectedRoute requiredRole="admin">
+                      <UserManagement />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="admin/matches" element={
+                    <ProtectedRoute requiredRole="admin">
+                      <MatchManagement />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="admin/announcements" element={
+                    <ProtectedRoute requiredRole="admin">
+                      <AnnouncementManagement />
+                    </ProtectedRoute>
+                  } />
+                </Route>
 
-              {/* Catch all route */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </div>
-        </Router>
+                {/* Catch all route */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </div>
+          </Router>
+        </I18nProvider>
       </SocketProvider>
     </AuthProvider>
   );

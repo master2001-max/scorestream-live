@@ -50,7 +50,7 @@ const Leaderboard = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -70,13 +70,11 @@ const Leaderboard = () => {
             {houses.map((house, index) => (
               <div
                 key={house._id}
-                className={`${getRankColor(index)} rounded-lg p-6 shadow-lg ${
-                  index < 3 ? 'ring-2 ring-opacity-50' : ''
-                } ${
-                  index === 0 ? 'ring-yellow-500' :
-                  index === 1 ? 'ring-gray-400' :
-                  index === 2 ? 'ring-orange-500' : ''
-                }`}
+                className={`${getRankColor(index)} rounded-lg p-6 shadow-lg ${index < 3 ? 'ring-2 ring-opacity-50' : ''
+                  } ${index === 0 ? 'ring-yellow-500' :
+                    index === 1 ? 'ring-gray-400' :
+                      index === 2 ? 'ring-orange-500' : ''
+                  }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
@@ -84,20 +82,18 @@ const Leaderboard = () => {
                       {getRankIcon(index)}
                     </div>
                     <div className="flex items-center space-x-3">
-                      <div 
+                      <div
                         className="w-8 h-8 rounded-full border-2 border-white shadow-md"
                         style={{ backgroundColor: house.color }}
                       ></div>
                       <div>
-                        <h3 className={`text-xl font-bold ${
-                          index < 3 ? 'text-white' : 'text-gray-900'
-                        }`}>
+                        <h3 className={`text-xl font-bold ${index < 3 ? 'text-white' : 'text-gray-900'
+                          }`}>
                           {house.name}
                         </h3>
                         {house.motto && (
-                          <p className={`text-sm ${
-                            index < 3 ? 'text-white opacity-90' : 'text-gray-600'
-                          }`}>
+                          <p className={`text-sm ${index < 3 ? 'text-white opacity-90' : 'text-gray-600'
+                            }`}>
                             "{house.motto}"
                           </p>
                         )}
@@ -106,14 +102,12 @@ const Leaderboard = () => {
                   </div>
 
                   <div className="text-right">
-                    <div className={`text-3xl font-bold ${
-                      index < 3 ? 'text-white' : 'text-gray-900'
-                    }`}>
+                    <div className={`text-3xl font-bold ${index < 3 ? 'text-white' : 'text-gray-900'
+                      }`}>
                       {house.totalScore}
                     </div>
-                    <div className={`text-sm ${
-                      index < 3 ? 'text-white opacity-90' : 'text-gray-600'
-                    }`}>
+                    <div className={`text-sm ${index < 3 ? 'text-white opacity-90' : 'text-gray-600'
+                      }`}>
                       points
                     </div>
                   </div>
@@ -123,38 +117,32 @@ const Leaderboard = () => {
                 {house.stats && (
                   <div className="mt-4 grid grid-cols-3 gap-4">
                     <div className="text-center">
-                      <div className={`text-lg font-semibold ${
-                        index < 3 ? 'text-white' : 'text-gray-900'
-                      }`}>
+                      <div className={`text-lg font-semibold ${index < 3 ? 'text-white' : 'text-gray-900'
+                        }`}>
                         {house.stats.wins}
                       </div>
-                      <div className={`text-xs ${
-                        index < 3 ? 'text-white opacity-90' : 'text-gray-600'
-                      }`}>
+                      <div className={`text-xs ${index < 3 ? 'text-white opacity-90' : 'text-gray-600'
+                        }`}>
                         Wins
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className={`text-lg font-semibold ${
-                        index < 3 ? 'text-white' : 'text-gray-900'
-                      }`}>
+                      <div className={`text-lg font-semibold ${index < 3 ? 'text-white' : 'text-gray-900'
+                        }`}>
                         {house.stats.losses}
                       </div>
-                      <div className={`text-xs ${
-                        index < 3 ? 'text-white opacity-90' : 'text-gray-600'
-                      }`}>
+                      <div className={`text-xs ${index < 3 ? 'text-white opacity-90' : 'text-gray-600'
+                        }`}>
                         Losses
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className={`text-lg font-semibold ${
-                        index < 3 ? 'text-white' : 'text-gray-900'
-                      }`}>
+                      <div className={`text-lg font-semibold ${index < 3 ? 'text-white' : 'text-gray-900'
+                        }`}>
                         {house.stats.draws}
                       </div>
-                      <div className={`text-xs ${
-                        index < 3 ? 'text-white opacity-90' : 'text-gray-600'
-                      }`}>
+                      <div className={`text-xs ${index < 3 ? 'text-white opacity-90' : 'text-gray-600'
+                        }`}>
                         Draws
                       </div>
                     </div>
@@ -164,12 +152,10 @@ const Leaderboard = () => {
                 {/* Captain Info */}
                 {house.captain && (
                   <div className="mt-4 flex items-center space-x-2">
-                    <UserGroupIcon className={`h-4 w-4 ${
-                      index < 3 ? 'text-white opacity-90' : 'text-gray-500'
-                    }`} />
-                    <span className={`text-sm ${
-                      index < 3 ? 'text-white opacity-90' : 'text-gray-600'
-                    }`}>
+                    <UserGroupIcon className={`h-4 w-4 ${index < 3 ? 'text-white opacity-90' : 'text-gray-500'
+                      }`} />
+                    <span className={`text-sm ${index < 3 ? 'text-white opacity-90' : 'text-gray-600'
+                      }`}>
                       Captain: {house.captain.name}
                     </span>
                   </div>

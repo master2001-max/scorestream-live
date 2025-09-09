@@ -1,1 +1,107 @@
 @import "tailwindcss";
+
+:root {
+    /* Strivo brand - blue */
+    --brand: 37 99 235;
+    /* blue-600 */
+    --brand-foreground: 255 255 255;
+
+    /* Extended palette: navy background + blue surfaces */
+    --bg: 15 23 42;
+    /* slate-900 */
+    --surface: 30 41 59;
+    /* slate-800 */
+    --text: 226 232 240;
+    /* slate-200 */
+    --muted: 148 163 184;
+    /* slate-400 */
+    --ring: var(--brand);
+}
+
+/* Manual dark mode via data-theme="dark" */
+[data-theme="dark"] {
+    --bg: 17 24 39;
+    /* gray-900 */
+    --surface: 31 41 55;
+    /* gray-800 */
+    --text: 243 244 246;
+    /* gray-100 */
+    --muted: 156 163 175;
+    /* gray-400 */
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Navy theme overrides for legacy Tailwind grays */
+.theme-navy .text-gray-900,
+.theme-navy .text-gray-800 {
+    color: rgb(var(--text)) !important;
+}
+
+.theme-navy .text-gray-700,
+.theme-navy .text-gray-600,
+.theme-navy .text-gray-500,
+.theme-navy .text-gray-400 {
+    color: rgb(var(--muted)) !important;
+}
+
+.theme-navy .bg-white {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.theme-navy .bg-gray-50 {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+.theme-navy .border-gray-200 {
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Form inputs visibility improvements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    background-color: rgb(var(--surface));
+    color: rgb(var(--text));
+}
+
+::placeholder {
+    color: rgb(var(--muted));
+    opacity: 1;
+}
+
+/* Utility helpers aligning with Tailwind classes */
+.btn-brand {
+    background-color: rgb(var(--brand));
+    color: rgb(var(--brand-foreground));
+}
+
+.btn-brand:hover {
+    filter: brightness(0.95);
+}
+
+.ring-brand {
+    box-shadow: 0 0 0 3px rgba(var(--brand), 0.35);
+}
+
+/* Light text helpers for headings on navy */
+.heading-light {
+    color: rgb(var(--text));
+}
+
+.text-muted-light {
+    color: rgb(var(--muted));
+}

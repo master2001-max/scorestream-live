@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children, requiredRole = null }) => {
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
             </div>
         );
     }
@@ -27,7 +27,7 @@ const ProtectedRoute = ({ children, requiredRole = null }) => {
                     </p>
                     <button
                         onClick={() => window.history.back()}
-                        className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+                        className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                     >
                         Go Back
                     </button>

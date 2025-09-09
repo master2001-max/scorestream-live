@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { housesAPI } from '../services/api';
+import { useI18n } from '../contexts/I18nContext.jsx';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,27 +9,14 @@ const Register = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'student',
-    house: ''
+    role: 'student'
   });
-  const [houses, setHouses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const { register } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchHouses = async () => {
-      try {
-        const response = await housesAPI.getAll();
-        setHouses(response.data);
-      } catch (error) {
-        console.error('Error fetching houses:', error);
-      }
-    };
-    fetchHouses();
-  }, []);
+  const { t } = useI18n();
 
   const handleChange = (e) => {
     setFormData({
@@ -58,30 +45,31 @@ const Register = () => {
 
     const { confirmPassword, ...registerData } = formData;
     const result = await register(registerData);
-    
+
     if (result.success) {
       navigate('/dashboard');
     } else {
       setError(result.message);
     }
-    
+
     setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create your account
+    <div className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg))] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 backdrop-blur bg-white/5 p-8 rounded-2xl shadow-xl border border-white/10">
+        <div className="text-center">
+          <img src="/strivo.png" alt="Strivo" className="mx-auto h-12 w-12 rounded" />
+          <h2 className="mt-4 text-center text-3xl font-extrabold heading-light">
+            {t('auth.createAccountTitle')}
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
+          <p className="mt-2 text-center text-sm text-slate-200">
+            {t('auth.or')}{' '}
             <Link
               to="/login"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-blue-400 hover:text-blue-300"
             >
-              sign in to your existing account
+              {t('auth.signInExisting')}
             </Link>
           </p>
         </div>
@@ -94,23 +82,23 @@ const Register = () => {
           <div className="space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Full Name
+                {t('auth.fullName')}
               </label>
               <input
                 id="name"
                 name="name"
                 type="text"
                 required
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Enter your full name"
+                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder={t('auth.fullName')}
                 value={formData.name}
                 onChange={handleChange}
               />
             </div>
-            
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email Address
+                {t('auth.email')}
               </label>
               <input
                 id="email"
@@ -118,52 +106,18 @@ const Register = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Enter your email"
+                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder={t('auth.email')}
                 value={formData.email}
                 onChange={handleChange}
               />
             </div>
 
-            <div>
-              <label htmlFor="role" className="block text-sm font-medium text-gray-700">
-                Role
-              </label>
-              <select
-                id="role"
-                name="role"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={formData.role}
-                onChange={handleChange}
-              >
-                <option value="student">Student</option>
-                <option value="guest">Guest</option>
-              </select>
-            </div>
+
 
             <div>
-              <label htmlFor="house" className="block text-sm font-medium text-gray-700">
-                House (Optional)
-              </label>
-              <select
-                id="house"
-                name="house"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={formData.house}
-                onChange={handleChange}
-              >
-                <option value="">Select a house</option>
-                {houses.map((house) => (
-                  <option key={house._id} value={house._id}>
-                    {house.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            
-            <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
+                {t('auth.password')}
               </label>
               <input
                 id="password"
@@ -171,8 +125,8 @@ const Register = () => {
                 type="password"
                 autoComplete="new-password"
                 required
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Enter your password"
+                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder={t('auth.password')}
                 value={formData.password}
                 onChange={handleChange}
               />
@@ -180,7 +134,7 @@ const Register = () => {
 
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                Confirm Password
+                {t('auth.confirmPassword')}
               </label>
               <input
                 id="confirmPassword"
@@ -188,8 +142,8 @@ const Register = () => {
                 type="password"
                 autoComplete="new-password"
                 required
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Confirm your password"
+                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder={t('auth.confirmPassword')}
                 value={formData.confirmPassword}
                 onChange={handleChange}
               />
@@ -200,9 +154,9 @@ const Register = () => {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-transform duration-150 active:scale-[0.99]"
             >
-              {loading ? 'Creating account...' : 'Create account'}
+              {loading ? t('auth.creatingAccount') : t('auth.createAccount')}
             </button>
           </div>
         </form>

@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { housesAPI } from '../services/api';
 import { UserIcon, KeyIcon } from '@heroicons/react/24/outline';
 
 const Profile = () => {
   const { user, updateProfile, changePassword } = useAuth();
-  const [houses, setHouses] = useState([]);
   const [activeTab, setActiveTab] = useState('profile');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
   const [profileData, setProfileData] = useState({
-    name: user?.name || '',
-    house: user?.house?._id || ''
+    name: user?.name || ''
   });
 
   const [passwordData, setPasswordData] = useState({
@@ -21,17 +18,7 @@ const Profile = () => {
     confirmPassword: ''
   });
 
-  useEffect(() => {
-    const fetchHouses = async () => {
-      try {
-        const response = await housesAPI.getAll();
-        setHouses(response.data);
-      } catch (error) {
-        console.error('Error fetching houses:', error);
-      }
-    };
-    fetchHouses();
-  }, []);
+
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
@@ -113,22 +100,20 @@ const Profile = () => {
             <nav className="-mb-px flex space-x-8">
               <button
                 onClick={() => setActiveTab('profile')}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'profile'
-                    ? 'border-indigo-500 text-indigo-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${activeTab === 'profile'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
               >
                 <UserIcon className="h-5 w-5 inline mr-2" />
                 Profile Information
               </button>
               <button
                 onClick={() => setActiveTab('password')}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'password'
-                    ? 'border-indigo-500 text-indigo-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${activeTab === 'password'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
               >
                 <KeyIcon className="h-5 w-5 inline mr-2" />
                 Change Password
@@ -138,11 +123,10 @@ const Profile = () => {
 
           {/* Message Display */}
           {message && (
-            <div className={`mb-6 p-4 rounded-md ${
-              message.includes('successfully') 
-                ? 'bg-green-50 border border-green-200 text-green-600'
-                : 'bg-red-50 border border-red-200 text-red-600'
-            }`}>
+            <div className={`mb-6 p-4 rounded-md ${message.includes('successfully')
+              ? 'bg-green-50 border border-green-200 text-green-600'
+              : 'bg-red-50 border border-red-200 text-red-600'
+              }`}>
               {message}
             </div>
           )}
@@ -167,20 +151,7 @@ const Profile = () => {
                       {getRoleDisplayName(user?.role)}
                     </span>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">House</label>
-                    {user?.house ? (
-                      <div className="flex items-center space-x-2">
-                        <div 
-                          className="w-4 h-4 rounded-full"
-                          style={{ backgroundColor: user.house.color }}
-                        ></div>
-                        <span className="text-sm text-gray-900">{user.house.name}</span>
-                      </div>
-                    ) : (
-                      <p className="text-sm text-gray-500">No house assigned</p>
-                    )}
-                  </div>
+
                 </div>
               </div>
 
@@ -195,34 +166,16 @@ const Profile = () => {
                     id="name"
                     name="name"
                     required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     value={profileData.name}
                     onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                   />
                 </div>
-                <div>
-                  <label htmlFor="house" className="block text-sm font-medium text-gray-700">
-                    House
-                  </label>
-                  <select
-                    id="house"
-                    name="house"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    value={profileData.house}
-                    onChange={(e) => setProfileData({ ...profileData, house: e.target.value })}
-                  >
-                    <option value="">Select a house</option>
-                    {houses.map((house) => (
-                      <option key={house._id} value={house._id}>
-                        {house.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+
                 <button
                   type="submit"
                   disabled={loading}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Updating...' : 'Update Profile'}
                 </button>
@@ -243,7 +196,7 @@ const Profile = () => {
                   id="currentPassword"
                   name="currentPassword"
                   required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   value={passwordData.currentPassword}
                   onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
                 />
@@ -257,7 +210,7 @@ const Profile = () => {
                   id="newPassword"
                   name="newPassword"
                   required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   value={passwordData.newPassword}
                   onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
                 />
@@ -271,7 +224,7 @@ const Profile = () => {
                   id="confirmPassword"
                   name="confirmPassword"
                   required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   value={passwordData.confirmPassword}
                   onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
                 />
@@ -279,7 +232,7 @@ const Profile = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Changing...' : 'Change Password'}
               </button>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { housesAPI, matchesAPI, announcementsAPI } from '../services/api';
-import { 
-  TrophyIcon, 
-  ChartBarIcon, 
+import {
+  TrophyIcon,
+  ChartBarIcon,
   SpeakerWaveIcon,
   UserGroupIcon,
   ClockIcon,
@@ -56,7 +56,7 @@ const Dashboard = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -64,11 +64,11 @@ const Dashboard = () => {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="bg-white overflow-hidden shadow rounded-lg">
+      <div className="backdrop-blur bg-white/5 border border-white/10 overflow-hidden shadow rounded-lg transition hover:shadow-md">
         <div className="px-4 py-5 sm:p-6">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <div 
+              <div
                 className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
                 style={{ backgroundColor: user?.house?.color || '#6B7280' }}
               >
@@ -89,7 +89,7 @@ const Dashboard = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="backdrop-blur bg-white/5 border border-white/10 overflow-hidden shadow rounded-lg transition hover:shadow-md">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
@@ -109,7 +109,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="backdrop-blur bg-white/5 border border-white/10 overflow-hidden shadow rounded-lg transition hover:shadow-md">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
@@ -129,7 +129,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="backdrop-blur bg-white/5 border border-white/10 overflow-hidden shadow rounded-lg transition hover:shadow-md">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
@@ -172,7 +172,7 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Leaderboard */}
-        <div className="bg-white shadow rounded-lg">
+        <div className="backdrop-blur bg-white/5 border border-white/10 shadow rounded-lg transition hover:shadow-md">
           <div className="px-4 py-5 sm:p-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
               House Leaderboard
@@ -185,7 +185,7 @@ const Dashboard = () => {
                       <span className="text-lg font-bold text-gray-600">#{index + 1}</span>
                     </div>
                     <div className="ml-3 flex items-center">
-                      <div 
+                      <div
                         className="w-4 h-4 rounded-full mr-3"
                         style={{ backgroundColor: house.color }}
                       ></div>
@@ -202,7 +202,7 @@ const Dashboard = () => {
         </div>
 
         {/* Live Matches */}
-        <div className="bg-white shadow rounded-lg">
+        <div className="backdrop-blur bg-white/5 border border-white/10 shadow rounded-lg transition hover:shadow-md">
           <div className="px-4 py-5 sm:p-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
               Live Matches
@@ -219,7 +219,7 @@ const Dashboard = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
-                        <div 
+                        <div
                           className="w-3 h-3 rounded-full mr-2"
                           style={{ backgroundColor: match.house1.color }}
                         ></div>
@@ -230,7 +230,7 @@ const Dashboard = () => {
                       </span>
                       <div className="flex items-center">
                         <span className="text-sm text-gray-900">{match.house2.name}</span>
-                        <div 
+                        <div
                           className="w-3 h-3 rounded-full ml-2"
                           style={{ backgroundColor: match.house2.color }}
                         ></div>
@@ -247,7 +247,7 @@ const Dashboard = () => {
       </div>
 
       {/* Recent Announcements */}
-      <div className="bg-white shadow rounded-lg">
+      <div className="backdrop-blur bg-white/5 border border-white/10 shadow rounded-lg transition hover:shadow-md">
         <div className="px-4 py-5 sm:p-6">
           <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
             Recent Announcements
@@ -255,17 +255,16 @@ const Dashboard = () => {
           {recentAnnouncements.length > 0 ? (
             <div className="space-y-4">
               {recentAnnouncements.map((announcement) => (
-                <div key={announcement._id} className="border-l-4 border-indigo-400 pl-4">
+                <div key={announcement._id} className="border-l-4 border-blue-400 pl-4">
                   <div className="flex items-center justify-between mb-1">
                     <h4 className="text-sm font-medium text-gray-900">
                       {announcement.title}
                     </h4>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      announcement.priority === 'urgent' ? 'bg-red-100 text-red-800' :
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${announcement.priority === 'urgent' ? 'bg-red-100 text-red-800' :
                       announcement.priority === 'high' ? 'bg-orange-100 text-orange-800' :
-                      announcement.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-gray-100 text-gray-800'
-                    }`}>
+                        announcement.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                          'bg-gray-100 text-gray-800'
+                      }`}>
                       {announcement.priority}
                     </span>
                   </div>

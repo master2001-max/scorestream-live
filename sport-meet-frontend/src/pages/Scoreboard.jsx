@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { matchesAPI } from '../services/api';
-import { 
-  ClockIcon, 
-  PlayIcon, 
+import {
+  ClockIcon,
+  PlayIcon,
   CheckCircleIcon,
   PlusIcon,
   MinusIcon
@@ -59,13 +59,13 @@ const Scoreboard = () => {
       });
 
       // Update local state
-      setMatches(prev => prev.map(m => 
-        m._id === matchId 
-          ? { 
-              ...m, 
-              score1: Math.max(0, newScore1), 
-              score2: Math.max(0, newScore2) 
-            }
+      setMatches(prev => prev.map(m =>
+        m._id === matchId
+          ? {
+            ...m,
+            score1: Math.max(0, newScore1),
+            score2: Math.max(0, newScore2)
+          }
           : m
       ));
     } catch (error) {
@@ -78,7 +78,7 @@ const Scoreboard = () => {
 
     try {
       await matchesAPI.start(matchId);
-      setMatches(prev => prev.map(m => 
+      setMatches(prev => prev.map(m =>
         m._id === matchId ? { ...m, status: 'live' } : m
       ));
     } catch (error) {
@@ -91,7 +91,7 @@ const Scoreboard = () => {
 
     try {
       await matchesAPI.finish(matchId);
-      setMatches(prev => prev.map(m => 
+      setMatches(prev => prev.map(m =>
         m._id === matchId ? { ...m, status: 'finished' } : m
       ));
     } catch (error) {
@@ -132,7 +132,7 @@ const Scoreboard = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -148,11 +148,10 @@ const Scoreboard = () => {
                 <button
                   key={status}
                   onClick={() => setFilter(status)}
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    filter === status
-                      ? 'bg-indigo-100 text-indigo-800'
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${filter === status
+                      ? 'bg-blue-100 text-blue-800'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
+                    }`}
                 >
                   {status.charAt(0).toUpperCase() + status.slice(1)}
                 </button>
@@ -191,7 +190,7 @@ const Scoreboard = () => {
                   <div className="space-y-3 mb-4">
                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <div 
+                        <div
                           className="w-4 h-4 rounded-full"
                           style={{ backgroundColor: match.house1.color }}
                         ></div>
@@ -226,7 +225,7 @@ const Scoreboard = () => {
 
                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <div 
+                        <div
                           className="w-4 h-4 rounded-full"
                           style={{ backgroundColor: match.house2.color }}
                         ></div>

@@ -53,7 +53,7 @@ const getMatch = async (req, res) => {
 // Create match (Admin, Score Uploader)
 const createMatch = async (req, res) => {
   try {
-    const { house1, house2, matchTime, sport, description, venue } = req.body;
+    const { house1, house2, matchTime, sport, description, venue, points } = req.body;
 
     // Validation
     if (!house1 || !house2 || !matchTime || !sport) {
@@ -101,6 +101,7 @@ const createMatch = async (req, res) => {
       sport,
       description,
       venue,
+      points: typeof points === 'number' && points >= 0 ? points : undefined,
       createdBy: req.user.id
     });
 
@@ -122,7 +123,7 @@ const createMatch = async (req, res) => {
 // Update match (Admin, Score Uploader)
 const updateMatch = async (req, res) => {
   try {
-    const { score1, score2, status, description, venue } = req.body;
+    const { score1, score2, status, description, venue, points } = req.body;
     const match = await Match.findById(req.params.id);
 
     if (!match) {
@@ -143,6 +144,7 @@ const updateMatch = async (req, res) => {
     if (status) match.status = status;
     if (description !== undefined) match.description = description;
     if (venue !== undefined) match.venue = venue;
+    if (points !== undefined && points >= 0) match.points = points;
 
     // If match is being finished, update house scores
     if (status === 'finished' && match.status !== 'finished') {
