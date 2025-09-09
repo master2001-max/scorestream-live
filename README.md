@@ -114,22 +114,6 @@ After seeding the database, you can use these credentials to test different role
 - Email: `admin@sportmeet.com`
 - Password: `password123`
 
-### Score Uploader
-- Email: `score@sportmeet.com`
-- Password: `password123`
-
-### House Captains
-- Red Captain: `red.captain@sportmeet.com` / `password123`
-- Blue Captain: `blue.captain@sportmeet.com` / `password123`
-- Green Captain: `green.captain@sportmeet.com` / `password123`
-- Yellow Captain: `yellow.captain@sportmeet.com` / `password123`
-
-### Students
-- John Smith: `john@sportmeet.com` / `password123`
-- Jane Doe: `jane@sportmeet.com` / `password123`
-- Mike Johnson: `mike@sportmeet.com` / `password123`
-- Sarah Wilson: `sarah@sportmeet.com` / `password123`
-
 ## API Endpoints
 
 ### Authentication
